@@ -1,5 +1,6 @@
-SAMPLES = 1000000
-#ENGINE = Antithetic
+SAMPLES = 10000
+#ENGINE = ControlVariate
 #ENGINE = Exponential
-ENGINE = Stratified
+#ENGINE = Antithetic
+#ENGINE = Stratified
 #ENGINE = Random

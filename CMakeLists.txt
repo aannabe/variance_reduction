@@ -15,6 +15,7 @@ set(SOURCE_FILES
     src/stratified_engine.cpp
     src/exponential_engine.cpp
     src/antithetic_engine.cpp
+    src/control_variate_engine.cpp
 )
 
 # Add the src directory to the include path so headers can be found
