@@ -1,3 +1,4 @@
 SAMPLES = 1000000
-ENGINE = Random
+ENGINE = Exponential
 #ENGINE = Stratified
+#ENGINE = Random

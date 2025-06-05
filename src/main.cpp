@@ -9,6 +9,7 @@
 #include "engine.h"             // base Engine + Sample
 #include "random_engine.h"      // RandomEngine
 #include "stratified_engine.h"  // StratifiedEngine
+#include "exponential_engine.h" // ExponentialEngine
 #include "utils.h"              // read_config, trim
 
 int main() {
@@ -16,8 +17,9 @@ int main() {
     std::string engine_name;     // Will hold e.g. "Random" or "Stratified"
     int requested_samples = 0;   // Will hold the integer that user wants
 
+    // Call updated read_config that also fills `lambda`
     if (!read_config("input.in", engine_name, requested_samples)) {
-        // If read_config returns false, exit with error code 1
+        // If it fails (missing ENGINE or SAMPLES, or parse error), exit with error
         return 1;
     }
 
@@ -30,6 +32,10 @@ int main() {
     }
     else if (engine_name == "Stratified") {
         engine_ptr = std::make_unique<StratifiedEngine>();
+    }
+    else if (engine_name == "Exponential") {
+        double lambda = 0.6;   // hard-coded value
+        engine_ptr = std::make_unique<ExponentialEngine>(lambda);
     }
     else {
         std::cerr << "Error: Unknown ENGINE \"" << engine_name << "\" in config.\n";
