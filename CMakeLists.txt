@@ -14,6 +14,7 @@ set(SOURCE_FILES
     src/random_engine.cpp
     src/stratified_engine.cpp
     src/exponential_engine.cpp
+    src/antithetic_engine.cpp
 )
 
 # Add the src directory to the include path so headers can be found

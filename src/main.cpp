@@ -10,6 +10,7 @@
 #include "random_engine.h"      // RandomEngine
 #include "stratified_engine.h"  // StratifiedEngine
 #include "exponential_engine.h" // ExponentialEngine
+#include "antithetic_engine.h"  // AntitheticEngine
 #include "utils.h"              // read_config, trim
 
 int main() {
@@ -36,6 +37,9 @@ int main() {
     else if (engine_name == "Exponential") {
         double lambda = 0.6;   // hard-coded value
         engine_ptr = std::make_unique<ExponentialEngine>(lambda);
+    }
+    else if (engine_name == "Antithetic") {
+        engine_ptr = std::make_unique<AntitheticEngine>();
     }
     else {
         std::cerr << "Error: Unknown ENGINE \"" << engine_name << "\" in config.\n";
