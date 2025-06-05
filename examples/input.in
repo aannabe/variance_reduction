@@ -1,0 +1,3 @@
+SAMPLES = 1000000
+ENGINE = Random
+#ENGINE = Stratified
