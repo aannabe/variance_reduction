@@ -12,6 +12,7 @@
 #include "exponential_engine.h" // ExponentialEngine
 #include "antithetic_engine.h"  // AntitheticEngine
 #include "control_variate_engine.h" // ControlVariateEngine
+#include "control_antithetic_engine.h" // ControlAntitheticEngine
 #include "utils.h"              // read_config, trim
 
 int main() {
@@ -44,6 +45,9 @@ int main() {
     }
     else if (engine_name == "ControlVariate") {
         engine_ptr = std::make_unique<ControlVariateEngine>();
+    }
+    else if (engine_name == "ControlAntithetic") {
+        engine_ptr = std::make_unique<ControlAntitheticEngine>();
     }
     else {
         std::cerr << "Error: Unknown ENGINE \"" << engine_name << "\" in config.\n";
