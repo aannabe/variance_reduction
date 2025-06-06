@@ -1,33 +1,40 @@
 #ifndef ANTITHETIC_ENGINE_H
 #define ANTITHETIC_ENGINE_H
 
-#include "engine.h"     // brings in `struct Sample { double x, y, value; };`
+#include "engine.h"     // defines `struct Sample { double x, y, value; };`
 #include <random>       // for std::mt19937
 
-// AntitheticEngine:  
-//   - If the user asks for N samples and N is odd, we round up to N_even = N+1 (an even number).
-//   - We generate N_even/2 i.i.d. uniforms (u,v), then for each pair we also include (1-u,1-v).
-//   - That produces N_even total points, all of which get tested against the quarter‐circle.
-//   - Each Sample.value = 4·I{x^2 + y^2 ≤ 1}.
-//   - Because we round up, actual_samples = N_even ≥ requested_samples.
+// AntitheticEngine:
 //
-// Example: if the user writes “SAMPLES = 7”, we actually draw 8 points, in 4 antithetic pairs.
+//   When `sample(n, outputs)` is called with an integer n,
+//   we treat n as the total number of function‐evaluations to perform.
+//   In antithetic sampling, each “pair” uses two f‐calls:  f(u,v) and f(1-u,1-v).
+//   Therefore we form (n/2) pairs and return exactly (n/2) Samples, where each
+//   Sample.value = [f(u,v) + f(1-u,1-v)]/2.  We store (u,v) as the sample coordinates.
 //
-// No duplicated “inside‐circle” logic: we factor the test out into a little helper lambda.
+//   If n is odd, we drop the last sample (so we effectively do floor(n/2) pairs).
+//   The returned outputs vector therefore has size ⌊n/2⌋.
+//
+//   In main.cpp, the estimator is still the average of all returned Sample.value’s;
+//   since each value is already the average of its two antithetic f‐calls, one ends up
+//   with exactly the usual “antithetic mean over n total f‐calls.”
 class AntitheticEngine : public Engine {
 public:
-    // Constructor: seed the RNG
+    // Constructor: seed the PRNG.
     AntitheticEngine();
 
-    // Destructor: nothing special
+    // Destructor: nothing special.
     ~AntitheticEngine();
 
-    // sample():  
-    //   * Round requested `samples` up to an even integer N_even.  
-    //   * Draw N_even/2 independent uniforms (u,v).  
-    //   * For each (u,v), append Sample{u, v, value} and Sample{1-u, 1-v, value}.  
-    //   * Each value = 4.0 if point is inside x^2+y^2 ≤ 1, else 0.0.
-    void sample(int samples, std::vector<Sample>& outputs) override;
+    // sample(n, outputs):
+    //  * If n is even, form n/2 pairs.
+    //  * If n is odd, form (n-1)/2 pairs (dropping the last “unpaired”).
+    //  * For each pair: draw (u,v) ∈ Uniform([0,1]^2), let (u2,v2)=(1-u,1-v).
+    //    Compute f1 = 4·I{u^2+v^2 ≤1}, f2 = 4·I{u2^2+v2^2 ≤1}.
+    //    Set avg = (f1 + f2)/2 and push Sample{u, v, avg}.
+    //
+    // At the end, outputs.size() = ⌊n/2⌋.
+    void sample(int n, std::vector<Sample>& outputs) override;
 
 private:
     std::mt19937 rng;  // Mersenne Twister PRNG
