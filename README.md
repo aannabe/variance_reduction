@@ -7,7 +7,7 @@ Variance Reduction Techniques: Sampling Pi via Circle-in-a-Square
 Plain IID draws $(x,y) \sim U([0,1]^2)$, $f = 4 \cdot I[x^2+y^2≤1]$.
 
 - **Stratified**  
-Partition $[0,1]^2$ into an $(m \times m)$ grid (where $m^2 \approx$ SAMPLES), draw one random point per cell, and average.
+Partition $[0,1]^2$ into an $(m \times m)$ grid (where $m^2 \approx N$), draw one random point per cell, and average.
 
 - **Exponential**  
 Importance sampling via an exponential function: $p(x, y) = λ^2 e^{-\lambda(x+y)} / (1 - e^{-\lambda})^2$. $\lambda = 0.6$ is hard-coded.
