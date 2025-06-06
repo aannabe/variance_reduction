@@ -1,4 +1,4 @@
-Variance Reduction Techniques: Sampling Pi via Circle-in-a-Square
+Variance Reduction Techniques in Monte Carlo: Sampling Pi via Circle-in-a-Square
 ==================================================================
 
 ## Variance Reduction Techniques (Engines):
