@@ -16,6 +16,8 @@
 //       h_i = f_i + β * (2/3 – g_i)
 //     which satisfies E[h] = π and Var(h) < Var(f).
 //     β can be obtained minimizing Var(h) w.r.t β. Namely, set d/dβ Var(h) = 0.
+//     Note that f and g are negatively correlated (beta ~ -3).
+//     We exploit this correlation to reduce the variance.
 //   - Pushes Sample{x_i, y_i, h_i} into outputs, so Welford’s routines in main.cpp work unchanged.
 class ControlVariateEngine : public Engine {
 public:

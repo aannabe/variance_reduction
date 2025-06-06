@@ -1,5 +1,5 @@
 SAMPLES = 10000
-#ENGINE = ControlVariate
+ENGINE = ControlVariate
 #ENGINE = Exponential
 #ENGINE = Antithetic
 #ENGINE = Stratified
