@@ -23,14 +23,14 @@ Antithetic pairs + control variate. For each pair, calculate $f_{avg} = (f_1 + f
 
 ## Variance Comparisons:
 Using $N = 25 \times 10^6$ samples:
-| Method                  | Variance |
-| ----------------------- | -------- |
-| Random                  | 2.6966   |
-| Stratified              | 2.6968   |
-| Exponential             | 2.1597   |
-| ControlVariate          | 1.1548   |
-| Antithetic              | 0.9799   |
-| ControlAntithetic       | 0.7665   |
+| Method                   | Variance |
+| ------------------------ | -------- |
+| Random                   | 2.6966   |
+| Stratified               | 2.6968   |
+| Importance (Exponential) | 2.1597   |
+| Control Variate          | 1.1548   |
+| Antithetic Variate       | 0.9799   |
+| Control + Antithetic     | 0.7665   |
 
 For this specific problem, the Control Variate technique, combined with Antithetic pair samples, appears to yield the best variance.
 The Stratified method did not result in any resolvable improvement in variance.
